@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
+
+    <description>spring configuration</description>
+
+    <!-- 扫描包 -->
+    <context:component-scan base-package="com.pemass"/>
+
+    <!-- 注册jackson对象 -->
+    <bean id="jacksonObjectMapper" class="com.pemass.common.core.json.JacksonObjectMapper"/>
+
+    <!-- ** ============================= Configuration transaction  ============================ ** -->
+    <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+        <property name="entityManagerFactory" ref="entityManagerFactory"/>
+    </bean>
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+    <tx:advice id="txAdvice" transaction-manager="transactionManager">
+        <tx:attributes>
+            <tx:method name="add*" propagation="REQUIRED" read-only="false"/>
+            <tx:method name="insert*" propagation="REQUIRED" read-only="false"/>
+            <tx:method name="save*" propagation="REQUIRED" read-only="false"/>
+            <tx:method name="delete*" propagation="REQUIRED" read-only="false"/>
+            <tx:method name="update*" propagation="REQUIRED" read-only="false"/>
+            <tx:method name="*" propagation="SUPPORTS" read-only="true"/>
+        </tx:attributes>
+    </tx:advice>
+    <aop:config>
+        <aop:advisor pointcut="execution(* com.pemass.service..*.*(..))
+                            || execution(* com.pemass..*.service..*.*(..))" advice-ref="txAdvice"/>
+    </aop:config>
+    <!-- 开启Aspectj模式的aop代理 -->
+    <aop:aspectj-autoproxy proxy-target-class="true"/>
+
+    <!-- ** ============================= Configuration JMS  ============================ ** -->
+    <context:property-placeholder location="classpath*:pemass-jms.properties"/>
+    <!-- 1.配置connectionFactory -->
+    <bean id="jmsFactory" class="org.apache.activemq.pool.PooledConnectionFactory" destroy-method="stop">
+        <property name="connectionFactory">
+            <bean class="org.apache.activemq.ActiveMQConnectionFactory">
+                <property name="brokerURL" value="${jms.brokerURL}"/>
+                <property name="userName" value="${jms.userName}"/>
+                <property name="password" value="${jms.password}"/>
+            </bean>
+        </property>
+        <property name="maxConnections" value="100"/>
+    </bean>
+    <!-- 2.定义消息目标 -->
+    <bean id="defaultDestination" class="org.apache.activemq.command.ActiveMQQueue">
+        <constructor-arg index="0" value="pemass.default.destination"/>
+    </bean>
+    <!-- 3.配置Spring JMS Template -->
+    <bean id="jmsTemplate" class="org.springframework.jms.core.JmsTemplate">
+        <property name="connectionFactory" ref="jmsFactory"/>
+        <property name="defaultDestination" ref="defaultDestination"/>
+    </bean>
+</beans>

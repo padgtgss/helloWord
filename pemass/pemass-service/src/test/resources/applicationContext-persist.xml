@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+    <description>spring configuration</description>
+    <context:component-scan base-package="com.pemass"/>
+
+    <!-- configuration dataSource -->
+    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+        <property name="url" value="jdbc:mysql://localhost:3306/pemass?characterEncoding=utf8"/>
+        <property name="username" value="root"/>
+        <property name="password" value="123456"/>
+    </bean>
+
+    <bean id="jedisConfig" class="redis.clients.jedis.JedisPoolConfig"/>
+    <bean id="jedisPool" class="redis.clients.jedis.JedisPool">
+        <constructor-arg name="poolConfig" ref="jedisConfig"/>
+        <constructor-arg name="host" value="118.123.166.248"/>
+        <constructor-arg name="port" value="6379"/>
+        <constructor-arg name="timeout" value="10000"/>
+        <constructor-arg name="password" value="pemass!@#123"/>
+        <constructor-arg name="database" value="0"/>
+    </bean>
+
+    <!-- configuration entity manager -->
+    <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+        <property name="persistenceXmlLocation" value="classpath*:persistence.xml"/>
+        <property name="persistenceUnitName" value="pemass"/>
+        <property name="dataSource" ref="dataSource"/>
+        <property name="jpaVendorAdapter">
+            <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+                <property name="database" value="MYSQL"/>
+                <property name="generateDdl" value="true"/>
+                <property name="showSql" value="true"/>
+            </bean>
+        </property>
+    </bean>
+
+    <!-- MongoDB Config-->
+    <bean id="morphiaDatastore" class="org.mongodb.morphia.DatastoreImpl">
+        <constructor-arg name="dbName" value="dev_pemass"/>
+        <constructor-arg name="mongoClient" ref="mongoClient"/>
+        <constructor-arg name="morphia" ref="morphia"/>
+    </bean>
+
+    <bean id="morphia" class="org.mongodb.morphia.Morphia"/>
+
+    <bean id="mongoCredential" class="com.mongodb.MongoCredential" factory-method="createMongoCRCredential">
+        <constructor-arg name="userName" type="java.lang.String" value="pemass-mongo"/>
+        <constructor-arg name="password" type="char[]" value="pemass!@#123"/>
+        <constructor-arg name="database" type="java.lang.String" value="dev_pemass"/>
+    </bean>
+
+    <bean id="serverAddress" class="com.mongodb.ServerAddress">
+        <constructor-arg name="host" value="118.123.166.248"/>
+        <constructor-arg name="port" value="27017"/>
+    </bean>
+
+    <bean id="mongoClient" class="com.mongodb.MongoClient">
+        <constructor-arg name="credentialsList">
+            <list>
+                <ref bean="mongoCredential"/>
+            </list>
+        </constructor-arg>
+        <constructor-arg name="addr" ref="serverAddress"/>
+    </bean>
+
+</beans>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+    <description>spring configuration</description>
+    <context:component-scan base-package="com.pemass"/>
+
+    <!-- Configuration DataSource  Start-->
+    <bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
+        <property name="jndiName" value="java:comp/env/jndi/pemass"/>
+        <property name="expectedType" value="javax.sql.DataSource"/>
+    </bean>
+
+    <bean id="morphiaDatastore" class="org.springframework.jndi.JndiObjectFactoryBean">
+        <property name="jndiName" value="java:comp/env/jndi/mongo"/>
+        <property name="expectedType" value="org.mongodb.morphia.Datastore"/>
+    </bean>
+
+    <bean id="jedisPool" class="org.springframework.jndi.JndiObjectFactoryBean">
+        <property name="jndiName" value="java:comp/env/jndi/redis"/>
+        <property name="expectedType" value="redis.clients.jedis.JedisPool"/>
+    </bean>
+
+    <!-- Configuration Entity Manager -->
+    <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+        <property name="persistenceXmlLocation" value="classpath*:persistence.xml"/>
+        <property name="persistenceUnitName" value="pemass"/>
+        <property name="dataSource" ref="dataSource"/>
+        <property name="jpaVendorAdapter">
+            <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+                <property name="database" value="MYSQL"/>
+                <property name="generateDdl" value="true"/>
+                <property name="showSql" value="true"/>
+            </bean>
+        </property>
+    </bean>
+
+</beans>

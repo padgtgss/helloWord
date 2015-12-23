@@ -1,0 +1,489 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.pemass</groupId>
+    <artifactId>pemass</artifactId>
+    <packaging>pom</packaging>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>pemass-root</name>
+    <modules>
+        <module>pemass-persist</module>
+        <module>pemass-service</module>
+        <module>pemass-portal</module>
+        <module>pemass-pojo</module>
+        <module>pemass-manager-portal</module>
+        <module>pemass-cloudpos-api</module>
+        <module>pemass-cloudmoney-api</module>
+        <module>pemass-web-service</module>
+    </modules>
+
+    <profiles>
+        <profile>
+            <id>dev</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <log4j.level>DEBUG</log4j.level>
+                <log4j.maxbackupindex>2</log4j.maxbackupindex>
+                <system.environment>dev</system.environment>
+                <resource.root.path>E:/file</resource.root.path>
+                <resource.root.url>http://localhost:8280/file</resource.root.url>
+                <jdbc.database>MYSQL</jdbc.database>
+                <jdbc.driverClass>com.mysql.jdbc.Driver</jdbc.driverClass>
+                <jdbc.url>jdbc:mysql://127.0.0.1:3306/pemass?characterEncoding=utf8</jdbc.url>
+                <jdbc.username>root</jdbc.username>
+                <jdbc.password>123456</jdbc.password>
+
+                <!-- JMS Config-->
+                <jms.brokerURL.maven>tcp://182.140.138.159:61616</jms.brokerURL.maven>
+                <jms.userName.maven>pemass-jms</jms.userName.maven>
+                <jms.password.maven>pemass!@#123</jms.password.maven>
+                <jms.log.destination>dev.pemass.log.destination</jms.log.destination>
+                <jms.mail.destination>dev.pemass.mail.destination</jms.mail.destination>
+                <jms.push.destination>dev.pemass.push.destination</jms.push.destination>
+                <pemass.portal>http://localhost:9999/pemass-portal/login.action</pemass.portal>
+                <pemass.portal.info>http://localhost:9999/pemass-portal/</pemass.portal.info>
+
+                <!-- MongoDB Config-->
+                <mongo.host>118.123.166.248</mongo.host>
+                <mongo.port>27017</mongo.port>
+                <mongo.dbname>dev_pemass</mongo.dbname>
+                <mongo.username>pemass-mongo</mongo.username>
+                <mongo.password>pemass!@#123</mongo.password>
+                <!-- Redis Config-->
+                <redis.host>118.123.166.248</redis.host>
+                <redis.port>6379</redis.port>
+                <redis.db>0</redis.db>
+                <redis.password>pemass!@#123</redis.password>
+
+            </properties>
+        </profile>
+        <profile>
+            <id>test</id>
+            <properties>
+                <log4j.level>DEBUG</log4j.level>
+                <log4j.maxbackupindex>50</log4j.maxbackupindex>
+                <system.environment>test</system.environment>
+                <resource.root.path>/opt/file</resource.root.path>
+                <resource.root.url>http://dev.res.pemass.com/file</resource.root.url>
+                <jdbc.database>MYSQL</jdbc.database>
+                <jdbc.driverClass>com.mysql.jdbc.Driver</jdbc.driverClass>
+                <jdbc.url>jdbc:mysql://118.123.166.248:3306/pemass?characterEncoding=utf8</jdbc.url>
+                <jdbc.username>root</jdbc.username>
+                <jdbc.password>pemass!@#123</jdbc.password>
+                <!-- JMS Config-->
+                <jms.brokerURL.maven>tcp://118.123.166.248:61616</jms.brokerURL.maven>
+                <jms.userName.maven>pemass-jms</jms.userName.maven>
+                <jms.password.maven>pemass!@#123</jms.password.maven>
+                <jms.log.destination>test.pemass.log.destination</jms.log.destination>
+                <jms.mail.destination>test.pemass.mail.destination</jms.mail.destination>
+                <jms.push.destination>test.pemass.push.destination</jms.push.destination>
+                <!-- Mongodb Config -->
+                <mongo.host>118.123.166.248</mongo.host>
+                <mongo.port>27017</mongo.port>
+                <mongo.dbname>test_pemass</mongo.dbname>
+                <mongo.username>pemass-mongo</mongo.username>
+                <mongo.password>pemass!@#123</mongo.password>
+                <!-- Redis Config -->
+                <redis.host>118.123.166.248</redis.host>
+                <redis.port>6379</redis.port>
+                <redis.db>0</redis.db>
+                <redis.password>pemass!@#123</redis.password>
+
+            </properties>
+        </profile>
+        <profile>
+            <id>pre</id>
+            <properties>
+                <log4j.level>DEBUG</log4j.level>
+                <log4j.maxbackupindex>50</log4j.maxbackupindex>
+                <system.environment>pre</system.environment>
+                <resource.root.path>/opt/file</resource.root.path>
+                <resource.root.url>http://pre.res.pemass.com/file</resource.root.url>
+                <jdbc.database>MYSQL</jdbc.database>
+                <jdbc.driverClass>com.mysql.jdbc.Driver</jdbc.driverClass>
+                <jdbc.url>jdbc:mysql://pre.db.pemass.com:3306/pemass?characterEncoding=utf8</jdbc.url>
+                <jdbc.username>root</jdbc.username>
+                <jdbc.password>pemass!@#123</jdbc.password>
+                <!-- JMS Config-->
+                <jms.brokerURL.maven>tcp://pre.jms.pemass.com:61616</jms.brokerURL.maven>
+                <jms.userName.maven>pemass-jms</jms.userName.maven>
+                <jms.password.maven>pemass!@#123</jms.password.maven>
+                <jms.log.destination>pre.pemass.log.destination</jms.log.destination>
+                <jms.mail.destination>pre.pemass.mail.destination</jms.mail.destination>
+                <jms.push.destination>pre.pemass.push.destination</jms.push.destination>
+                <!-- Mongodb Config -->
+                <mongo.host>pre.db.pemass.com</mongo.host>
+                <mongo.port>27017</mongo.port>
+                <mongo.dbname>pre_pemass</mongo.dbname>
+                <mongo.username>pemass-mongo</mongo.username>
+                <mongo.password>pemass!@#123</mongo.password>
+                <!-- Redis Config -->
+                <redis.host>pre.db.pemass.com</redis.host>
+                <redis.port>6379</redis.port>
+                <redis.db>0</redis.db>
+                <redis.password>pemass!@#123</redis.password>
+
+            </properties>
+        </profile>
+
+        <profile>
+            <id>release</id>
+            <properties>
+                <log4j.level>DEBUG</log4j.level>
+                <log4j.maxbackupindex>50</log4j.maxbackupindex>
+                <system.environment>release</system.environment>
+                <resource.root.path>/opt/file</resource.root.path>
+                <resource.root.url>http://res.pemass.com/file</resource.root.url>
+                <jdbc.database>MYSQL</jdbc.database>
+                <jdbc.driverClass>com.mysql.jdbc.Driver</jdbc.driverClass>
+                <jdbc.url>jdbc:mysql://db.pemass.com:3306/pemass?characterEncoding=utf8</jdbc.url>
+                <jdbc.username>root</jdbc.username>
+                <jdbc.password>pemass!@#123</jdbc.password>
+                <!-- JMS Config-->
+                <jms.brokerURL.maven>tcp://jms.pemass.com:61616</jms.brokerURL.maven>
+                <jms.userName.maven>pemass-jms</jms.userName.maven>
+                <jms.password.maven>pemass!@#123</jms.password.maven>
+                <jms.log.destination>pemass.log.destination</jms.log.destination>
+                <jms.mail.destination>pemass.mail.destination</jms.mail.destination>
+                <jms.push.destination>pemass.push.destination</jms.push.destination>
+                <!-- Mongodb Config -->
+                <mongo.host>db.pemass.com</mongo.host>
+                <mongo.port>27017</mongo.port>
+                <mongo.dbname>pemass</mongo.dbname>
+                <mongo.username>pemass-mongo</mongo.username>
+                <mongo.password>pemass!@#123</mongo.password>
+                <!-- Redis Config -->
+                <redis.host>118.123.166.234</redis.host>
+                <redis.port>6379</redis.port>
+                <redis.db>0</redis.db>
+                <redis.password>pemass!@#123</redis.password>
+
+            </properties>
+        </profile>
+    </profiles>
+
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <common.root>0.0.1-SNAPSHOT</common.root>
+        <struts.version>2.3.16</struts.version>
+        <spring.version>3.2.3.RELEASE</spring.version>
+        <shiro.version>1.2.3</shiro.version>
+        <activemq.version>5.7.0</activemq.version>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <!--工程module -->
+            <dependency>
+                <groupId>com.pemass</groupId>
+                <artifactId>pemass-api</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.pemass</groupId>
+                <artifactId>pemass-portal</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.pemass</groupId>
+                <artifactId>pemass-service</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.pemass</groupId>
+                <artifactId>pemass-persist</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.pemass</groupId>
+                <artifactId>pemass-pojo</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.pemass</groupId>
+                <artifactId>pemass-web-service</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <!--common root-->
+            <dependency>
+                <groupId>com.pemass.common</groupId>
+                <artifactId>common-root</artifactId>
+                <version>${common.root}</version>
+                <scope>import</scope>
+            </dependency>
+
+            <!-- +++|struts|+++ start -->
+            <dependency>
+                <groupId>org.apache.struts</groupId>
+                <artifactId>struts2-core</artifactId>
+                <version>${struts.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>asm</groupId>
+                        <artifactId>asm</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>javassist</groupId>
+                        <artifactId>javassist</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.struts</groupId>
+                <artifactId>struts2-convention-plugin</artifactId>
+                <version>${struts.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.struts</groupId>
+                <artifactId>struts2-spring-plugin</artifactId>
+                <version>${struts.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.springframework</groupId>
+                        <artifactId>spring-core</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.springframework</groupId>
+                        <artifactId>spring-aop</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.springframework</groupId>
+                        <artifactId>spring-beans</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.springframework</groupId>
+                        <artifactId>spring-context</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <!-- |struts| end -->
+
+
+            <!-- +++|shiro|+++ -->
+            <dependency>
+                <groupId>org.apache.shiro</groupId>
+                <artifactId>shiro-core</artifactId>
+                <version>${shiro.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.shiro</groupId>
+                <artifactId>shiro-web</artifactId>
+                <version>${shiro.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.shiro</groupId>
+                <artifactId>shiro-spring</artifactId>
+                <version>${shiro.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.shiro</groupId>
+                <artifactId>shiro-ehcache</artifactId>
+                <version>${shiro.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>net.sf.ehcache</groupId>
+                        <artifactId>ehcache-core</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <!-- |shiro| end -->
+
+
+            <!-- +++|springmvc|+++ start -->
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-web</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-webmvc</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+            <!-- |springmvc| end -->
+
+
+            <!-- +++|Spring Security|+++  start-->
+            <dependency>
+                <groupId>org.springframework.security</groupId>
+                <artifactId>spring-security-core</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.security</groupId>
+                <artifactId>spring-security-config</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.security</groupId>
+                <artifactId>spring-security-web</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+            <!-- |Spring Security| end-->
+
+
+            <!-- +++|Servlet|+++ -->
+            <dependency>
+                <groupId>javax.servlet</groupId>
+                <artifactId>servlet-api</artifactId>
+                <version>2.4</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>javax.servlet</groupId>
+                <artifactId>jsp-api</artifactId>
+                <version>2.0</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>javax.servlet</groupId>
+                <artifactId>jstl</artifactId>
+                <version>1.2</version>
+            </dependency>
+            <!-- |Servlet| end -->
+
+            <!-- +++|java mail|+++ -->
+            <dependency>
+                <groupId>com.sun.mail</groupId>
+                <artifactId>javax.mail</artifactId>
+                <version>1.5.0</version>
+            </dependency>
+            <!-- |java mail| end -->
+
+            <dependency>
+                <groupId>org.apache.httpcomponents</groupId>
+                <artifactId>httpclient</artifactId>
+                <version>4.3.1</version>
+            </dependency>
+
+
+            <!-- +++|JMS|+++ -->
+
+
+
+
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-jms</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.activemq</groupId>
+                <artifactId>activemq-spring</artifactId>
+                <version>${activemq.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.activemq</groupId>
+                <artifactId>activemq-broker</artifactId>
+                <version>5.10.0</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.activemq</groupId>
+                <artifactId>activemq-pool</artifactId>
+                <version>${activemq.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>javax.jms</groupId>
+                <artifactId>javax.jms-api</artifactId>
+                <version>2.0</version>
+            </dependency>
+            <!-- |JMS| end -->
+            <!-- +++|Morphia|+++ -->
+            <dependency>
+                <groupId>org.mongodb.morphia</groupId>
+                <artifactId>morphia</artifactId>
+                <version>0.108</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>redis.clients</groupId>
+                <artifactId>jedis</artifactId>
+                <version>2.5.0</version>
+                <scope>provided</scope>
+            </dependency>
+            <!-- |Morphia| end -->
+        </dependencies>
+    </dependencyManagement>
+    <build>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+        <testResources>
+            <testResource>
+                <directory>src/test/resources</directory>
+                <filtering>true</filtering>
+            </testResource>
+        </testResources>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-source-plugin</artifactId>
+                    <version>2.1.2</version>
+                    <executions>
+                        <execution>
+                            <goals>
+                                <goal>jar</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.tomcat.maven</groupId>
+                    <artifactId>tomcat7-maven-plugin</artifactId>
+                    <version>2.0</version>
+                    <configuration>
+                        <uriEncoding>utf-8</uriEncoding>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.zeroturnaround</groupId>
+                    <artifactId>jrebel-maven-plugin</artifactId>
+                    <version>1.1.5</version>
+                    <executions>
+                        <execution>
+                            <id>generate-rebel-xml</id>
+                            <phase>process-resources</phase>
+                            <goals>
+                                <goal>generate</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>3.1</version>
+                    <configuration>
+                        <source>1.6</source>
+                        <target>1.6</target>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+        <plugins>
+            <plugin>
+                <groupId>org.zeroturnaround</groupId>
+                <artifactId>jrebel-maven-plugin</artifactId>
+                <version>1.1.5</version>
+                <executions>
+                    <execution>
+                        <id>generate-rebel-xml</id>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>

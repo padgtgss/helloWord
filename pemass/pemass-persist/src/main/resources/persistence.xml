@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<persistence xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd" version="1.0">
+
+    <persistence-unit name="pemass" transaction-type="RESOURCE_LOCAL">
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+
+        <!-- 基础表 -->
+        <class>com.pemass.persist.domain.jpa.bas.Announcement</class>
+        <class>com.pemass.persist.domain.jpa.bas.City</class>
+        <class>com.pemass.persist.domain.jpa.bas.Device</class>
+        <class>com.pemass.persist.domain.jpa.bas.District</class>
+        <class>com.pemass.persist.domain.jpa.bas.Province</class>
+        <class>com.pemass.persist.domain.jpa.bas.Resources</class>
+        <class>com.pemass.persist.domain.jpa.sms.SmsMessage</class>
+
+        <!-- 系统表 -->
+        <class>com.pemass.persist.domain.jpa.sys.Account</class>
+        <class>com.pemass.persist.domain.jpa.sys.Company</class>
+        <class>com.pemass.persist.domain.jpa.sys.CreditRecord</class>
+        <class>com.pemass.persist.domain.jpa.sys.Feedback</class>
+        <class>com.pemass.persist.domain.jpa.sys.Manager</class>
+        <class>com.pemass.persist.domain.jpa.sys.Organization</class>
+        <class>com.pemass.persist.domain.jpa.sys.BankCard</class>
+        <class>com.pemass.persist.domain.jpa.sys.OrganizationPos</class>
+        <class>com.pemass.persist.domain.jpa.sys.TerminalUser</class>
+        <class>com.pemass.persist.domain.jpa.sys.User</class>
+        <class>com.pemass.persist.domain.jpa.sys.Version</class>
+        <class>com.pemass.persist.domain.jpa.sys.CityServiceProvider</class>
+        <class>com.pemass.persist.domain.jpa.sys.ServiceControll</class>
+        <class>com.pemass.persist.domain.jpa.sys.OrganizationCategory</class>
+
+        <!-- 积分表 -->
+        <class>com.pemass.persist.domain.jpa.poi.CollectMoneyScheme</class>
+        <class>com.pemass.persist.domain.jpa.poi.CollectMoneyStrategy</class>
+        <class>com.pemass.persist.domain.jpa.poi.CollectMoneyStrategySnapshot</class>
+        <class>com.pemass.persist.domain.jpa.poi.IssueStrategy</class>
+        <class>com.pemass.persist.domain.jpa.poi.LotteryDraw</class>
+        <class>com.pemass.persist.domain.jpa.poi.OnePointConsumeDetail</class>
+        <class>com.pemass.persist.domain.jpa.poi.OnePointDetail</class>
+        <class>com.pemass.persist.domain.jpa.poi.OrganizationConsumeDetail</class>
+        <class>com.pemass.persist.domain.jpa.poi.OrganizationPointDetail</class>
+        <class>com.pemass.persist.domain.jpa.poi.PointCoupon</class>
+        <class>com.pemass.persist.domain.jpa.poi.PointPool</class>
+        <class>com.pemass.persist.domain.jpa.poi.PointPoolOrganization</class>
+        <class>com.pemass.persist.domain.jpa.poi.PointPurchase</class>
+        <class>com.pemass.persist.domain.jpa.poi.Present</class>
+        <class>com.pemass.persist.domain.jpa.poi.PresentItem</class>
+        <class>com.pemass.persist.domain.jpa.poi.PresentPack</class>
+        <class>com.pemass.persist.domain.jpa.poi.PresentRecord</class>
+        <class>com.pemass.persist.domain.jpa.poi.PresentSquare</class>
+        <class>com.pemass.persist.domain.jpa.poi.RecycleRecord</class>
+        <class>com.pemass.persist.domain.jpa.poi.StrategyContent</class>
+        <class>com.pemass.persist.domain.jpa.poi.UserConsumeDetail</class>
+        <class>com.pemass.persist.domain.jpa.poi.UserPointDetail</class>
+
+        <!-- 业务表 -->
+        <class>com.pemass.persist.domain.jpa.biz.AccountRelation</class>
+        <class>com.pemass.persist.domain.jpa.biz.AuditRecord</class>
+        <class>com.pemass.persist.domain.jpa.biz.ExpresspayCard</class>
+        <class>com.pemass.persist.domain.jpa.biz.ExpresspayCardDetail</class>
+        <class>com.pemass.persist.domain.jpa.biz.ExpresspayCardRecord</class>
+        <class>com.pemass.persist.domain.jpa.biz.Instruction</class>
+        <class>com.pemass.persist.domain.jpa.biz.News</class>
+        <class>com.pemass.persist.domain.jpa.biz.Notification</class>
+        <class>com.pemass.persist.domain.jpa.biz.NotificationOrganization</class>
+        <class>com.pemass.persist.domain.jpa.biz.Product</class>
+        <class>com.pemass.persist.domain.jpa.biz.ProductApplyRecord</class>
+        <class>com.pemass.persist.domain.jpa.biz.ProductCategory</class>
+        <class>com.pemass.persist.domain.jpa.biz.ProductImage</class>
+        <class>com.pemass.persist.domain.jpa.biz.ProductSnapshot</class>
+        <class>com.pemass.persist.domain.jpa.biz.Site</class>
+        <class>com.pemass.persist.domain.jpa.biz.UserExpresspayCard</class>
+        <class>com.pemass.persist.domain.jpa.biz.UserExpresspayCardDetail</class>
+
+        <!-- 电商表 -->
+        <class>com.pemass.persist.domain.jpa.ec.Clearing</class>
+        <class>com.pemass.persist.domain.jpa.ec.Invoice</class>
+        <class>com.pemass.persist.domain.jpa.ec.Order</class>
+        <class>com.pemass.persist.domain.jpa.ec.OrderItem</class>
+        <class>com.pemass.persist.domain.jpa.ec.OrderTicket</class>
+        <class>com.pemass.persist.domain.jpa.ec.Payment</class>
+        <class>com.pemass.persist.domain.jpa.ec.Settlement</class>
+        <class>com.pemass.persist.domain.jpa.ec.SettlementClearing</class>
+        <class>com.pemass.persist.domain.jpa.ec.Transaction</class>
+        <class>com.pemass.persist.domain.jpa.ec.TransactionSettlement</class>
+    </persistence-unit>
+
+
+</persistence>
